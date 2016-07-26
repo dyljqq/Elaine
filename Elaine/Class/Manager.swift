@@ -76,20 +76,21 @@ public class Manager {
             
         }
         
+        public var taskDidComplete: ((NSURLSession, NSURLSessionTask, NSError?) -> Void)?
+        
+        public var dataTaskDidReceiveData: ((NSURLSession, NSURLSessionDataTask, NSData) -> Void)?
+        
         public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-                print(json)
-            } catch let error as NSError {
-                print("error: \(error)")
+            if let dataTaskDidReceiveData = dataTaskDidReceiveData {
+                dataTaskDidReceiveData(session, dataTask, data)
+            } else if let delegate = self[dataTask] as? Request.DataTaskDelegate {
+                delegate.URLSession(session, dataTask: dataTask, didReceiveData: data)
             }
         }
         
         public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
             
         }
-        
-        public var taskDidComplete: ((NSURLSession, NSURLSessionTask, NSError?) -> Void)?
         
         public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
             if let taskDidComplete = taskDidComplete {

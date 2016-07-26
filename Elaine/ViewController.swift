@@ -14,11 +14,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        Elaine.request(.GET, "https://httpbin.org/get", params: ["foo": "bar"]).delegate.taskDidCompleteWithError = { session, task, error in
-            print(session)
-            print(task)
-            print(error)
-        }
+        Elaine.request(.GET, "https://httpbin.org/get", params: ["foo": "bar"]).responseJSON(completionHandler: { response in
+            print("result: \(response.result)")
+        })
         
     }
 
