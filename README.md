@@ -17,7 +17,7 @@ To integrate Elaine into your XCode project using CocoPods, specify it in your p
 	platform :ios, '8.0'
 	use_frameworks!
 
-	pod 'Elaine', '~>1.0.0'
+	pod 'Elaine', '~>1.0.1'
 
 	end
 	
