@@ -66,7 +66,7 @@ func URLRequest(method: Method,
 
 // MARK: - Request Method
 
-func request(method: Method,
+public func request(method: Method,
              _ URLString: URLStringConvertible,
              params: [String: AnyObject]? = nil,
              encoding: ParamterEncoding = .URL,
